@@ -22,6 +22,9 @@ func Fold[Acc, T any](items iter.Seq[T], acc Acc, fn func(Acc, T) Acc) Acc {
 	return acc
 }
 
+// Alternative fold to iterate over only some part of iterator
+//
+// This implementation is way slower by benchmarks.
 func fold[Acc, T any](next func() (T, bool), acc Acc, fn func(Acc, T) Acc) Acc {
 	for val, ok := next(); ok; val, ok = next() {
 		acc = fn(acc, val)
